@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
+//std
+#include <regex>
 //CoreFS
 #include "CoreFS.h"
 
@@ -67,6 +69,13 @@ bool CoreDir::CreateDirectory(
 //subdirectories and files in the directory.
 bool CoreDir::Delete(const std::string path, bool recursive /* = false */)
 {
+    //COWHACK(n2omatt): We can make this function based
+    //  upon GetDirectories and GetFiles.
+    //  1 - Get all Directories recursive.
+    //  2 - Get all Files recursive.
+    //  3 - Delete Files.
+    //  4 - Delete Dirs.
+
     //Simple case:
     //  Just delete the directory itself, it'll fail
     //  unless the dir is already empty...
@@ -115,10 +124,54 @@ bool CoreDir::Delete(const std::string path, bool recursive /* = false */)
 //Returns the names of the subdirectories (including their paths)
 //that match the specified search pattern in the specified directory,
 //and optionally searches subdirectories.
-std::vector<std::string> GetDirectories(
+std::vector<std::string> CoreDir::GetDirectories(
     const std::string &path,
-    const std::string &pattern   = "*",
-    bool               recursive = true);
+    const std::string &pattern   /* = "*"  */,
+    bool               recursive /* = true */ )
+{
+    std::vector<std::string> entries;
+
+    DIR *p_DIR = opendir(path.c_str());
+    if(!p_DIR)
+        return entries;
+
+    auto re = std::regex(pattern);
+    auto sm = std::smatch();
+
+    struct dirent *p_dirent = nullptr;
+    while((p_dirent = readdir(p_DIR)) != nullptr)
+    {
+        auto name = std::string(p_dirent->d_name);
+        if(name == ".." || name == ".")
+            continue;
+
+        //Test if name matches the pattern.
+        auto match = std::regex_match(name, sm, re);
+        if(!match)
+            continue;
+
+        auto fullname = CoreFS::Join(path, {name});
+        bool is_dir   = CoreFS::IsDir(fullname);
+
+        if(is_dir)
+        {
+            entries.push_back(name);
+            auto recursive_entries = GetDirectories(
+                fullname,
+                pattern,
+                recursive
+            );
+
+            std::copy(
+                recursive_entries.begin(),
+                recursive_entries.end  (),
+                std::back_inserter(entries)
+            );
+        }
+    }
+
+    return entries;
+}
 
 
 //Returns the names of files (including their paths) that match the
