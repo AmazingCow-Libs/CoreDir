@@ -1,3 +1,4 @@
+//COWTODO: Add license header.
 #pragma once
 
 //std
@@ -24,7 +25,7 @@ bool Delete(const std::string &path, bool recursive = false);
 //and optionally searches subdirectories.
 std::vector<std::string> GetDirectories(
         const std::string &path,
-        const std::string &pattern   = "*",
+        const std::string &pattern   = ".*",
         bool               recursive = true);
 
 
@@ -33,14 +34,14 @@ std::vector<std::string> GetDirectories(
 //to determine whether to search subdirectories.
 std::vector<std::string> GetFiles(
     const std::string &path,
-    const std::string &pattern   = "*",
+    const std::string &pattern   = ".*",
     bool               recursive = true);
 
 //Returns an array of all the file names and directory names that match
 //a search pattern in a specified path, and optionally searches subdirectories.
 std::vector<std::string> GetFileSystemEntries(
     const std::string &path,
-    const std::string &pattern   = "*",
+    const std::string &pattern   = ".*",
     bool               recursive = true);
 
 
