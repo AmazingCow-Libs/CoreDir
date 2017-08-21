@@ -46,6 +46,32 @@
 //CoreDir
 #include "CoreDir_Utils.h"
 
+//
+// Notice:
+//   This lib is a "rip-off" of the C# Environment class.
+//
+//   We find very useful have those "functions" on C#,
+//   but we want to use them on C++ as well.
+//   We made a lot of effort to make it correct and respect the
+//   semantics of both original API and C++ usage.
+//   But there some places that it wasn't possible or would make
+//   the API hard to use. On these places we choose to the possibility
+//   of the easier usage.
+//
+//   There some functions that aren't implemented and we don't have
+//   plans to implement in a near future, for those, you're free
+//   to implement ;D
+//
+//   Lastly, our target here is make it very usable both on Windows and GNU/Linux,
+//   there are no efforts currently to make it usable on OSX or other Unices neither
+//   for mobile platforms. But this might change on future.
+//
+//   Have fun...
+//   n2omatt - <n2omatt@amazingcow.com>
+//
+//   C# API Reference:
+//      https://msdn.microsoft.com/en-us/library/system.io.directory(v=vs.110).aspx
+//
 
 NS_COREDIR_BEGIN
 
