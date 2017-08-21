@@ -48,7 +48,7 @@
 
 //
 // Notice:
-//   This lib is a "rip-off" of the C# Environment class.
+//   This lib is a "rip-off" of the C# Directory class.
 //
 //   We find very useful have those "functions" on C#,
 //   but we want to use them on C++ as well.
