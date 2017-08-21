@@ -1,3 +1,5 @@
+
+#if __linux__
 //Header
 #include "../include/CoreDir.h"
 //C
@@ -5,12 +7,85 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
+//std
+#include <regex>
 //CoreFS
 #include "CoreFS.h"
 
 
-#if __linux__
+////////////////////////////////////////////////////////////////////////////////
+// Helper Functions                                                           //
+////////////////////////////////////////////////////////////////////////////////
+std::vector<std::string> get_filesystem_entries_helper(
+    const std::string &path,
+    const std::string &pattern,
+    bool               recursive,
+    bool               getFiles,
+    bool               getDirs)
+{
+    std::vector<std::string> entries;
 
+    DIR *p_DIR = opendir(path.c_str());
+    if(!p_DIR)
+        return entries;
+
+    auto re = std::regex(pattern, std::regex::egrep);
+    auto sm = std::smatch();
+
+    struct dirent *p_dirent = nullptr;
+    while((p_dirent = readdir(p_DIR)) != nullptr)
+    {
+        auto name = std::string(p_dirent->d_name);
+        if(name == ".." || name == ".")
+            continue;
+
+        //Test if name matches the pattern.
+        auto match = std::regex_match(name, sm, re);
+        if(!match)
+            continue;
+
+        auto fullname = CoreFS::Join(path, {name});
+        bool is_dir   = CoreFS::IsDir(fullname);
+
+        //This entry is a directory we need:
+        //  1 - Check if we want get the directory entries.
+        //  2 - Check if we want recursive search.
+        if(is_dir)
+        {
+            //1 - We want get the directory entries?
+            if(getDirs)
+                entries.push_back(fullname);
+
+            //2 - We want recursive search?
+            if(recursive)
+            {
+                auto recursive_entries = CoreDir::GetDirectories(
+                    fullname,
+                    pattern,
+                    recursive
+                );
+
+                std::copy(
+                    recursive_entries.begin(),
+                    recursive_entries.end  (),
+                    std::back_inserter(entries)
+                );
+            }
+        }
+        //This is a regular file, we need check
+        //if we want get the file entries
+        else if(getFiles)
+        {
+            entries.push_back(fullname);
+        }
+    }
+
+    return entries;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Function Definitions                                                       //
+////////////////////////////////////////////////////////////////////////////////
 //Creates all directories and subdirectories in the
 //specified path unless they already exist.
 bool CoreDir::CreateDirectory(
@@ -24,7 +99,7 @@ bool CoreDir::CreateDirectory(
     auto components         = CoreFS::SplitAll(curr_path);
     auto dirs_created       = std::vector<std::string>();
     auto clear_dirs_created = false; //For when an error occurrs
-                                     //we can delete the created dirs.
+    //we can delete the created dirs.
 
     curr_path.clear();
     for(const auto &comp : components)
@@ -122,26 +197,35 @@ bool CoreDir::Delete(const std::string &path, bool recursive /* = false */)
 //Returns the names of the subdirectories (including their paths)
 //that match the specified search pattern in the specified directory,
 //and optionally searches subdirectories.
-std::vector<std::string> GetDirectories(
+std::vector<std::string> CoreDir::GetDirectories(
     const std::string &path,
-    const std::string &pattern   = "*",
-    bool               recursive = true);
+    const std::string &pattern   /* = "*"  */,
+    bool               recursive /* = true */ )
+{
+    return get_filesystem_entries_helper(path, pattern, recursive, false, true);
+}
 
 
 //Returns the names of files (including their paths) that match the
 //specified search pattern in the specified directory, using a value
 //to determine whether to search subdirectories.
-std::vector<std::string> GetFiles(
+std::vector<std::string> CoreDir::GetFiles(
     const std::string &path,
-    const std::string &pattern   = "*",
-    bool               recursive = true);
+    const std::string &pattern   /* = "*"  */,
+    bool               recursive /* = true */)
+{
+    return get_filesystem_entries_helper(path, pattern, recursive, true, false);
+}
 
 //Returns an array of all the file names and directory names that match
 //a search pattern in a specified path, and optionally searches subdirectories.
-std::vector<std::string> GetFileSystemEntries(
+std::vector<std::string> CoreDir::GetFileSystemEntries(
     const std::string &path,
-    const std::string &pattern   = "*",
-    bool               recursive = true);
+    const std::string &pattern   /* = "*"  */,
+    bool               recursive /* = true */)
+{
+    return get_filesystem_entries_helper(path, pattern, recursive, true, true);
+}
 
 
 //Determines whether the given path refers to
@@ -162,6 +246,5 @@ bool CoreDir::Move(const std::string &src, const std::string &dst)
 
     return (rename(abs_src.c_str(), abs_dst.c_str()) == 0);
 }
-
 
 #endif //#if __linux__
