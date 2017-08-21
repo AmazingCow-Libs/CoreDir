@@ -36,9 +36,9 @@ As usual, you are **very welcomed** to **share** and **hack** it.
 | Delete                | Done          |       |
 | GetDirectories        | Done          |       |
 | GetFiles              | Done          |       |
-| GetFileSystemEntries  |               |       |
-| Exists                |               |       |
-| Move                  |               |       | 
+| GetFileSystemEntries  | Done          |       |
+| Exists                | Done          |       |
+| Move                  | Done          |       | 
 
 <!-- ####################################################################### -->
 <!-- Usage ################################################################# -->
