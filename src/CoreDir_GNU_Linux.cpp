@@ -67,6 +67,13 @@ bool CoreDir::CreateDirectory(
 //subdirectories and files in the directory.
 bool CoreDir::Delete(const std::string &path, bool recursive /* = false */)
 {
+    //COWHACK(n2omatt): We can make this function based
+    //  upon GetDirectories and GetFiles.
+    //  1 - Get all Directories recursive.
+    //  2 - Get all Files recursive.
+    //  3 - Delete Files.
+    //  4 - Delete Dirs.
+
     //Simple case:
     //  Just delete the directory itself, it'll fail
     //  unless the dir is already empty...
