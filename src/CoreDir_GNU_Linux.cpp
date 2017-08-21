@@ -65,7 +65,7 @@ bool CoreDir::CreateDirectory(
 
 //Deletes the specified directory and, if indicated, any
 //subdirectories and files in the directory.
-bool CoreDir::Delete(const std::string path, bool recursive /* = false */)
+bool CoreDir::Delete(const std::string &path, bool recursive /* = false */)
 {
     //Simple case:
     //  Just delete the directory itself, it'll fail

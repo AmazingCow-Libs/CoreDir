@@ -15,7 +15,7 @@ bool CreateDirectory(const std::string &path, unsigned mode = 0777);
 
 //Deletes the specified directory and, if indicated, any
 //subdirectories and files in the directory.
-bool Delete(const std::string path, bool recursive = false);
+bool Delete(const std::string &path, bool recursive = false);
 
 
 
