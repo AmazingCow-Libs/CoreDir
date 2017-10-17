@@ -32,13 +32,13 @@ As usual, you are **very welcomed** to **share** and **hack** it.
 
 | Function              | GNU/Linux     | W32   |
 | --------------------- |:-------------:| -----:|
-| CreateDirectory       | Done          |       |
-| Delete                | Done          |       |
-| GetDirectories        | Done          |       |
-| GetFiles              | Done          |       |
-| GetFileSystemEntries  | Done          |       |
-| Exists                | Done          |       |
-| Move                  | Done          |       | 
+| CreateDirectory       | Done          | Done  |
+| Delete                | Done          | Done  |
+| GetDirectories        | Done          | Done  |
+| GetFiles              | Done          | Done  |
+| GetFileSystemEntries  | Done          | Done  |
+| Exists                | Done          | Done  |
+| Move                  | Done          | Done  | 
 
 <!-- ####################################################################### -->
 <!-- Usage ################################################################# -->
