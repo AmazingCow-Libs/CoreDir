@@ -7,9 +7,9 @@
 //                    |   _   ||     |_ |       ||   _   |                    //
 //                    |__| |__||_______||_______||__| |__|                    //
 //                             www.amazingcow.com                             //
-//  File      : CoreDir_Utils.h                                               //
+//  File      : os_functions.h                                                //
 //  Project   : CoreDir                                                       //
-//  Date      : Aug 11, 2017                                                  //
+//  Date      : Oct 17, 2017                                                  //
 //  License   : GPLv3                                                         //
 //  Author    : n2omatt <n2omatt@amazingcow.com>                              //
 //  Copyright : AmazingCow - 2017                                             //
@@ -19,21 +19,24 @@
 //---------------------------------------------------------------------------~//
 
 #pragma once
+//std
+#include <vector>
+#include <string>
+//CoreDir
+#include "../include/CoreDir_Utils.h"
 
-//All classes of this core is placed inside this namespace.
-//We use MACROS so is easier to change if needed.
-//Is (in our opinion) more explicit.
-//And finally the editors will not reformat the code.
-#define NS_COREDIR_BEGIN namespace CoreDir {
-#define NS_COREDIR_END   }
-#define USING_NS_COREDIR using namespace CoreDir
+NS_COREDIR_BEGIN
 
-//The core version number.
-#define COW_COREDIR_VERSION_MAJOR    "0"
-#define COW_COREDIR_VERSION_MINOR    "0"
-#define COW_COREDIR_VERSION_REVISION "0"
+bool os_rename     (const std::string &src, const std::string &dst);
+bool os_remove_file(const std::string &path);
+bool os_remove_dir (const std::string &path);
+bool os_mkdir      (const std::string &path, int perms);
 
-#define COW_COREDIR_VERSION       \
-    COW_COREDIR_VERSION_MAJOR "." \
-    COW_COREDIR_VERSION_MINOR "." \
-    COW_COREDIR_VERSION_REVISION
+std::vector<std::string> os_get_filesystem_entries_helper(
+    const std::string &path,
+    const std::string &pattern,
+    bool               recursive,
+    bool               getFiles,
+    bool               getDirs);
+
+NS_COREDIR_END
