@@ -158,9 +158,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\lib\CoreFS\src\CoreFS.cpp" />
     <ClCompile Include="..\..\lib\CoreFS\src\CoreFS_Win32.cpp" />
-    <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\src\CoreDir.cpp" />
     <ClCompile Include="..\..\src\win32\os_functions.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

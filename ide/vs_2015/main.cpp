@@ -1,5 +1,5 @@
 
-#include "./include/CoreDir.h"
+#include "CoreDir.h"
 #include "CoreFS.h"
 #include <iostream>
 #include <string>
