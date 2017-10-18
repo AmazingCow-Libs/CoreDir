@@ -187,5 +187,11 @@ bool CoreDir::Move(const std::string &src, const std::string &dst)
     if(abs_src == abs_dst)
         return false;
 
+    if(!CoreDir::Exists(abs_src))
+        return false;
+
+    if(CoreDir::Exists(abs_dst))
+        return false;
+
     return os_rename(abs_src.c_str(), abs_dst.c_str());
 }
