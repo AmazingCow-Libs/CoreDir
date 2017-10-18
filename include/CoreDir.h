@@ -51,44 +51,115 @@
 
 NS_COREDIR_BEGIN
 
-//Creates all directories and subdirectories in the
-//specified path unless they already exist.
+///@brief
+///  Creates all directories and subdirectories in the
+///  specified path unless they already exist.
+///@param path
+///  The path that directory will be created.
+///@param mode
+///  The directories permissions (same as mkdir(1)).
+///  This is ignored on Windows.
+///@returns
+///  true if the operation succeeded, false otherwise.
+///@notes
+///  CreateDirectory will try to undo (remove all created directories)
+///  if at some point the operation fails. This will try to let the
+///  filesystem at a consistent state.
 bool CreateDirectory(const std::string &path, unsigned mode = 0777);
 
-//Deletes the specified directory and, if indicated, any
-//subdirectories and files in the directory.
+///@brief
+///  Deletes the specified directory and, if indicated, any
+///  subdirectories and files in the directory.
+///@param path
+///  The path of directory that will be removed.
+///@param recursive
+///  If the function should remove underneath contents.
+///  The behaviour is the same of rm(1) when recursive is set
+///  to false (default) and rm(1) -rf when recursive is set to true.
+///@returns
+///  true if the operation succeeded, false otherwise.
 bool Delete(const std::string &path, bool recursive = false);
 
-
-//Returns the names of the subdirectories (including their paths)
-//that match the specified search pattern in the specified directory,
-//and optionally searches subdirectories.
+///@brief
+///  Returns the names of the subdirectories (including their paths)
+///  that match the specified search pattern in the specified directory,
+///  and optionally searches subdirectories.
+///@param path
+///  The start path of the search.
+///@param pattern
+///  The regex that entries will be tested against.
+///  The implementation pass the argument directly to std::regex_match,
+///  so to futher details about it, please refer to:
+///     http://en.cppreference.com/w/cpp/regex/regex_match
+///@param recursive
+///  If the function should scan subdirectories.
+///@returns
+///  The list of entries that match the pattern.
+///@see GetFileSystemEntries, GetFiles.
 std::vector<std::string> GetDirectories(
         const std::string &path,
         const std::string &pattern   = ".*",
         bool               recursive = true);
 
-//Returns the names of files (including their paths) that match the
-//specified search pattern in the specified directory, using a value
-//to determine whether to search subdirectories.
+///@brief
+///  Returns the names of files (including their paths) that match the
+///  specified search pattern in the specified directory, using a value
+///  to determine whether to search subdirectories.
+///@param path
+///  The start path of the search.
+///@param pattern
+///  The regex that entries will be tested against.
+///  The implementation pass the argument directly to std::regex_match,
+///  so to futher details about it, please refer to:
+///     http://en.cppreference.com/w/cpp/regex/regex_match
+///@param recursive
+///  If the function should scan subdirectories.
+///@returns
+///  The list of entries that match the pattern.
+///@see GetFileSystemEntries, GetDirectories.
 std::vector<std::string> GetFiles(
     const std::string &path,
     const std::string &pattern   = ".*",
     bool               recursive = true);
 
-//Returns an array of all the file names and directory names that match
-//a search pattern in a specified path, and optionally searches subdirectories.
+///@brief
+///  Returns an array of all the file names and directory names that match
+///  a search pattern in a specified path, and optionally
+//   searches subdirectories.
+///@param path
+///  The start path of the search.
+///@param pattern
+///  The regex that entries will be tested against.
+///  The implementation pass the argument directly to std::regex_match,
+///  so to futher details about it, please refer to:
+///     http://en.cppreference.com/w/cpp/regex/regex_match
+///@param recursive
+///  If the function should scan subdirectories.
+///@returns
+///  The list of entries that match the pattern.
+///@see GetFiles, GetDirectories.
 std::vector<std::string> GetFileSystemEntries(
     const std::string &path,
     const std::string &pattern   = ".*",
     bool               recursive = true);
 
-
-//Determines whether the given path refers to
-//an existing directory on disk.
+///@brief
+///  Determines whether the given path refers to
+///  an existing directory on disk.
+///@param path
+///  The path for the tested directory.
+///@returns
+///  true if the entry exists **and** is a directory, false otherwise.
 bool Exists(const std::string &path);
 
-//Moves a file or a directory and its contents to a new location.
+///@brief
+///  Moves a file or a directory and its contents to a new location.
+///@param src
+///  Current location of the directory.
+///@param dst
+///  Destination location of the directory.
+///@returns
+///  true if the operation succeeded, false otherwise.
 bool Move(const std::string &src, const std::string &dst);
 
 NS_COREDIR_END
