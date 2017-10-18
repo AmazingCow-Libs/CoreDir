@@ -15,7 +15,12 @@
 //  Copyright : AmazingCow - 2017                                             //
 //                                                                            //
 //  Description :                                                             //
+//    Function declarations for the platform specific pieces.                 //
+//    To enable CoreDir.cpp to be implemented only once all functions         //
+//    that are depended of platform specific pieces are forwarded to          //
+//    functions declared here.                                                //
 //                                                                            //
+//    Each platform implement those functions separately.                     //
 //---------------------------------------------------------------------------~//
 
 #pragma once

@@ -15,7 +15,7 @@
 //  Copyright : AmazingCow - 2017                                             //
 //                                                                            //
 //  Description :                                                             //
-//                                                                            //
+//    Implementation for Windows.                                             //
 //---------------------------------------------------------------------------~//
 
 #if _WIN32

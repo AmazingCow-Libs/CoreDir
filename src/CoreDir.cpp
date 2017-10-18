@@ -15,7 +15,16 @@
 //  Copyright : AmazingCow - 2017                                             //
 //                                                                            //
 //  Description :                                                             //
+//    Implementation for the CoreDir functions.                               //
+//    Notice that this file implements all functions in a platform agnostic   //
+//    way, so all things that are specific to each platform is forwarded      //
+//    to a external function.                                                 //
 //                                                                            //
+//    This functions are defined in a "private" header, called os_functions.h //
+//    and implemented separately for each supported platform.                 //
+//                                                                            //
+//    So to add a new platform is just create the platform directory          //
+//    and implement the os_functions.cpp for it.                              //
 //---------------------------------------------------------------------------~//
 
 //Header

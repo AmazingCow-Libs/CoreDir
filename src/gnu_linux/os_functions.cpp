@@ -15,7 +15,7 @@
 //  Copyright : AmazingCow - 2017                                             //
 //                                                                            //
 //  Description :                                                             //
-//                                                                            //
+//    Implementation for GNU/Linux.                                           //
 //---------------------------------------------------------------------------~//
 
 #if __linux__

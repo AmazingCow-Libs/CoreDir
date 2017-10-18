@@ -15,7 +15,7 @@
 //  Copyright : AmazingCow - 2017                                             //
 //                                                                            //
 //  Description :                                                             //
-//                                                                            //
+//    Utilities used by almost all files in the project.                      //
 //---------------------------------------------------------------------------~//
 
 #pragma once
