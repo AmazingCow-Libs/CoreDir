@@ -1,7 +1,9 @@
 Title:
     CoreDir
 Description:
-    A C++, cross-platform implementation of the C# Directory class.
+    A C++, cross-platform implementation of the
+    <a href="https://msdn.microsoft.com/en-us/library/system.io.directory.aspx">C# Directory</a>
+    class.
 URL:
     Github, https://github.com/AmazingCow-Libs/CoreDir
     Docs,  http://amazingcow.com/docs/CoreDir
