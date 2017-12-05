@@ -27,21 +27,20 @@
 //    and implement the os_functions.cpp for it.                              //
 //---------------------------------------------------------------------------~//
 
-//Header
+// Header
 #include "../include/CoreDir.h"
-//C
+// C
 #include <stdio.h>
-//CoreFS
-#include "CoreFS.h"
-//Wrappers
+// CoreFS
+#include "CoreFS/CoreFS.h"
+// Wrappers
 #include "os_functions.h"
 
 
-////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------//
 // Function Definitions                                                       //
-////////////////////////////////////////////////////////////////////////////////
-//Creates all directories and subdirectories in the
-//specified path unless they already exist.
+//----------------------------------------------------------------------------//
+//------------------------------------------------------------------------------
 bool CoreDir::CreateDirectory(
     const std::string &path,
     unsigned           mode /* = 0777 */)
@@ -94,8 +93,7 @@ bool CoreDir::CreateDirectory(
     return !clear_dirs_created;
 }
 
-//Deletes the specified directory and, if indicated, any
-//subdirectories and files in the directory.
+//------------------------------------------------------------------------------
 bool CoreDir::Delete(const std::string &path, bool recursive /* = false */)
 {
     auto all_files = GetFiles(path, ".*", true);
@@ -127,10 +125,7 @@ bool CoreDir::Delete(const std::string &path, bool recursive /* = false */)
     return true;
 }
 
-
-//Returns the names of the subdirectories (including their paths)
-//that match the specified search pattern in the specified directory,
-//and optionally searches subdirectories.
+//------------------------------------------------------------------------------
 std::vector<std::string> CoreDir::GetDirectories(
     const std::string &path,
     const std::string &pattern   /* = ".*"  */,
@@ -145,10 +140,7 @@ std::vector<std::string> CoreDir::GetDirectories(
     );
 }
 
-
-//Returns the names of files (including their paths) that match the
-//specified search pattern in the specified directory, using a value
-//to determine whether to search subdirectories.
+//------------------------------------------------------------------------------
 std::vector<std::string> CoreDir::GetFiles(
     const std::string &path,
     const std::string &pattern   /* = ".*"  */,
@@ -163,8 +155,7 @@ std::vector<std::string> CoreDir::GetFiles(
     );
 }
 
-//Returns an array of all the file names and directory names that match
-//a search pattern in a specified path, and optionally searches subdirectories.
+//------------------------------------------------------------------------------
 std::vector<std::string> CoreDir::GetFileSystemEntries(
     const std::string &path,
     const std::string &pattern   /* = ".*"  */,
@@ -179,15 +170,13 @@ std::vector<std::string> CoreDir::GetFileSystemEntries(
     );
 }
 
-
-//Determines whether the given path refers to
-//an existing directory on disk.
+//------------------------------------------------------------------------------
 bool CoreDir::Exists(const std::string &path)
 {
     return CoreFS::IsDir(path);
 }
 
-//Moves a file or a directory and its contents to a new location.
+//------------------------------------------------------------------------------
 bool CoreDir::Move(const std::string &src, const std::string &dst)
 {
     auto abs_src = CoreFS::AbsPath(src);

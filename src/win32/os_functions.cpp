@@ -20,31 +20,34 @@
 
 #if _WIN32
 
-//Header
+// Header
 #include "../os_functions.h"
-//std
+// std
 #include <regex>
-//Windows
+// Windows
 #include <Windows.h>
-//CoreFS
-#include "CoreFS.h"
+// CoreFS
+#include "CoreFS?CoreFS.h"
 
-
+//------------------------------------------------------------------------------
 bool CoreDir::os_rename(const std::string &src, const std::string &dst)
 {
     return MoveFileA(src.c_str(), dst.c_str());
 }
 
+//------------------------------------------------------------------------------
 bool CoreDir::os_remove_file(const std::string &path)
 {
     return DeleteFileA(path.c_str());
 }
 
+//------------------------------------------------------------------------------
 bool CoreDir::os_remove_dir(const std::string &path)
 {
     return RemoveDirectoryA(path.c_str());
 }
 
+//------------------------------------------------------------------------------
 bool CoreDir::os_mkdir(
     const std::string &path,
     int /* perms - On Windows we ignore the flags... */)
@@ -52,6 +55,7 @@ bool CoreDir::os_mkdir(
     return CreateDirectoryA(path.c_str(), nullptr);
 }
 
+//------------------------------------------------------------------------------
 std::vector<std::string> CoreDir::os_get_filesystem_entries_helper(
     const std::string &path,
     const std::string &pattern,
@@ -59,11 +63,12 @@ std::vector<std::string> CoreDir::os_get_filesystem_entries_helper(
     bool               getFiles,
     bool               getDirs)
 {
-    //References:
-    //  https://msdn.microsoft.com/en-us/library/windows/desktop/aa365200(v=vs.85).aspx
-    //  FindFirstFile: https://msdn.microsoft.com/en-us/library/windows/desktop/aa364418(v=vs.85).aspx
-    //  FindNextFile : https://msdn.microsoft.com/en-us/library/windows/desktop/aa364428(v=vs.85).aspx
-    //  FindClose    : https://msdn.microsoft.com/en-us/library/windows/desktop/aa364413(v=vs.85).aspx
+    //--------------------------------------------------------------------------
+    // References:
+    //   https://msdn.microsoft.com/en-us/library/windows/desktop/aa365200(v=vs.85).aspx
+    //   FindFirstFile: https://msdn.microsoft.com/en-us/library/windows/desktop/aa364418(v=vs.85).aspx
+    //   FindNextFile : https://msdn.microsoft.com/en-us/library/windows/desktop/aa364428(v=vs.85).aspx
+    //   FindClose    : https://msdn.microsoft.com/en-us/library/windows/desktop/aa364413(v=vs.85).aspx
     std::vector<std::string> entries;
 
     WIN32_FIND_DATAA ffd         = { 0 };

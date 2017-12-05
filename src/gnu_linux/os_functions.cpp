@@ -20,37 +20,42 @@
 
 #if __linux__
 
-//Header
+// Header
 #include "../os_functions.h"
-//C
+// C
 #include <dirent.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
-//std
+// std
 #include <regex>
 
+
+//------------------------------------------------------------------------------
 bool CoreDir::os_rename(const std::string &src, const std::string &dst)
 {
     return rename(src.c_str(), dst.c_str());
 }
 
+//------------------------------------------------------------------------------
 bool CoreDir::os_remove_file(const std::string &path)
 {
     return remove(path.c_str());
 }
 
+//------------------------------------------------------------------------------
 bool CoreDir::os_remove_dir(const std::string &path)
 {
     return rmdir(path.c_str());
 }
 
+//------------------------------------------------------------------------------
 bool CoreDir::os_mkdir(const std::string &path, int perms)
 {
     return mkdir(path.c_str(), perms);
 }
 
-
+//------------------------------------------------------------------------------
 std::vector<std::string> os_get_filesystem_entries_helper(
     const std::string &path,
     const std::string &pattern,
@@ -74,7 +79,7 @@ std::vector<std::string> os_get_filesystem_entries_helper(
         if(name == ".." || name == ".")
             continue;
 
-        //Test if name matches the pattern.
+        // Test if name matches the pattern.
         auto match = std::regex_match(name, sm, re);
         if(!match)
             continue;
