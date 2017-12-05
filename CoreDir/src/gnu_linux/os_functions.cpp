@@ -29,6 +29,8 @@
 #include <sys/stat.h>
 // std
 #include <regex>
+// CoreFS
+#include "CoreFS/CoreFS.h"
 
 
 //------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ bool CoreDir::os_mkdir(const std::string &path, int perms)
 }
 
 //------------------------------------------------------------------------------
-std::vector<std::string> os_get_filesystem_entries_helper(
+std::vector<std::string> CoreDir::os_get_filesystem_entries_helper(
     const std::string &path,
     const std::string &pattern,
     bool               recursive,
