@@ -1,8 +1,10 @@
 
-#include "CoreDir.h"
-#include "CoreFS.h"
+#include "CoreDir/CoreDir.h"
+#include "CoreFS/CoreFS.h"
+
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 int main()
