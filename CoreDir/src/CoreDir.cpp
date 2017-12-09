@@ -88,6 +88,8 @@ bool CoreDir::CreateDirectory(
         {
             os_remove_dir(*rit);
         }
+
+        //COWTODO(n2omatt): How we gonna handle errors???
     }
 
     return !clear_dirs_created;
@@ -125,6 +127,19 @@ bool CoreDir::Delete(const std::string &path, bool recursive /* = false */)
     return true;
 }
 
+
+//------------------------------------------------------------------------------
+bool CoreDir::Exists(const std::string &path)
+{
+    return CoreFS::IsDir(path);
+}
+
+//------------------------------------------------------------------------------
+std::string CoreDir::GetCurrentDirectory()
+{
+    return CoreFS::CurrentDirectory();
+}
+
 //------------------------------------------------------------------------------
 std::vector<std::string> CoreDir::GetDirectories(
     const std::string &path,
@@ -138,6 +153,17 @@ std::vector<std::string> CoreDir::GetDirectories(
         false,
         true
     );
+}
+
+//------------------------------------------------------------------------------
+std::string CoreDir::GetDirectoryRoot(const std::string &path)
+{
+    auto fullpath = (CoreFS::IsAbs(path))
+        ? path
+        : CoreFS::Join(CoreFS::CurrentDirectory(), {path});
+
+    auto components = CoreFS::SplitAll(fullpath);
+    return components.front();
 }
 
 //------------------------------------------------------------------------------
@@ -170,10 +196,14 @@ std::vector<std::string> CoreDir::GetFileSystemEntries(
     );
 }
 
+
 //------------------------------------------------------------------------------
-bool CoreDir::Exists(const std::string &path)
+std::string CoreDir::GetParent(const std::string &path)
 {
-    return CoreFS::IsDir(path);
+    if(CoreFS::IsAbs(path))
+        return path;
+
+    return CoreFS::AbsPath(CoreFS::Join(path, {".."}));
 }
 
 //------------------------------------------------------------------------------
@@ -192,4 +222,13 @@ bool CoreDir::Move(const std::string &src, const std::string &dst)
         return false;
 
     return os_rename(abs_src.c_str(), abs_dst.c_str());
+}
+
+
+///-----------------------------------------------------------------------------
+void CoreDir::SetCurrentDirectory(const std::string &path)
+{
+    //COWTODO(n2omatt): How we gonna handle errors...
+    auto fullpath = CoreFS::AbsPath(path);
+    os_chdir(fullpath);
 }

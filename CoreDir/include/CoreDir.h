@@ -51,6 +51,23 @@
 
 NS_COREDIR_BEGIN
 
+//------------------------------------------------------------------------------
+// Functions to implement:
+//   GetCreationTime
+//   GetCreationTimeUtc
+//   GetLastAccessTime
+//   GetLastAccessTimeUtc
+//   GetLastWriteTime
+//   GetLastWriteTimeUtc
+//   GetLogicalDrives
+//   SetCreationTime
+//   SetCreationTimeUtc
+//   SetLastAccessTime
+//   SetLastAccessTimeUtc
+//   SetLastWriteTime
+//   SetLastWriteTimeUtc
+
+
 ///-----------------------------------------------------------------------------
 /// @brief
 ///   Creates all directories and subdirectories in the
@@ -84,6 +101,20 @@ bool Delete(const std::string &path, bool recursive = false);
 
 ///-----------------------------------------------------------------------------
 /// @brief
+///   Determines whether the given path refers to
+///   an existing directory on disk.
+/// @param path
+///   The path for the tested directory.
+/// @returns
+///   true if the entry exists **and** is a directory, false otherwise.
+bool Exists(const std::string &path);
+
+///-----------------------------------------------------------------------------
+//COWTODO(n2omatt): Doxygen...
+std::string GetCurrentDirectory();
+
+///-----------------------------------------------------------------------------
+/// @brief
 ///   Returns the names of the subdirectories (including their paths)
 ///   that match the specified search pattern in the specified directory,
 ///   and optionally searches subdirectories.
@@ -98,11 +129,16 @@ bool Delete(const std::string &path, bool recursive = false);
 ///   If the function should scan subdirectories.
 /// @returns
 ///   The list of entries that match the pattern.
-/// @see GetFileSystemEntries, GetFiles.
+/// @see
+///   GetFileSystemEntries, GetFiles.
 std::vector<std::string> GetDirectories(
         const std::string &path,
         const std::string &pattern   = ".*",
         bool               recursive = true);
+
+///-----------------------------------------------------------------------------
+//COWTODO(n2omatt): Doxygen...
+std::string GetDirectoryRoot(const std::string &path);
 
 ///-----------------------------------------------------------------------------
 /// @brief
@@ -120,7 +156,8 @@ std::vector<std::string> GetDirectories(
 ///   If the function should scan subdirectories.
 /// @returns
 ///   The list of entries that match the pattern.
-/// @see GetFileSystemEntries, GetDirectories.
+/// @see
+///   GetFileSystemEntries, GetDirectories.
 std::vector<std::string> GetFiles(
     const std::string &path,
     const std::string &pattern   = ".*",
@@ -130,7 +167,7 @@ std::vector<std::string> GetFiles(
 /// @brief
 ///   Returns an array of all the file names and directory names that match
 ///   a search pattern in a specified path, and optionally
-//   searches subdirectories.
+///   searches subdirectories.
 /// @param path
 ///   The start path of the search.
 /// @param pattern
@@ -142,21 +179,16 @@ std::vector<std::string> GetFiles(
 ///   If the function should scan subdirectories.
 /// @returns
 ///   The list of entries that match the pattern.
-/// @see GetFiles, GetDirectories.
+/// @see
+///   GetFiles, GetDirectories.
 std::vector<std::string> GetFileSystemEntries(
     const std::string &path,
     const std::string &pattern   = ".*",
     bool               recursive = true);
 
 ///-----------------------------------------------------------------------------
-/// @brief
-///   Determines whether the given path refers to
-///   an existing directory on disk.
-/// @param path
-///   The path for the tested directory.
-/// @returns
-///   true if the entry exists **and** is a directory, false otherwise.
-bool Exists(const std::string &path);
+//COWTODO(n2omatt): Doxygen....
+std::string GetParent(const std::string &path);
 
 ///-----------------------------------------------------------------------------
 /// @brief
@@ -168,5 +200,9 @@ bool Exists(const std::string &path);
 /// @returns
 ///   true if the operation succeeded, false otherwise.
 bool Move(const std::string &src, const std::string &dst);
+
+///-----------------------------------------------------------------------------
+//COWTODO(n2omatt): Doxygen...
+void SetCurrentDirectory(const std::string &path);
 
 NS_COREDIR_END
