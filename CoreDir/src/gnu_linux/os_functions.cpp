@@ -36,25 +36,25 @@
 //------------------------------------------------------------------------------
 bool CoreDir::os_rename(const std::string &src, const std::string &dst)
 {
-    return rename(src.c_str(), dst.c_str());
+    return rename(src.c_str(), dst.c_str()) == 0;
 }
 
 //------------------------------------------------------------------------------
 bool CoreDir::os_remove_file(const std::string &path)
 {
-    return remove(path.c_str());
+    return remove(path.c_str()) == 0;
 }
 
 //------------------------------------------------------------------------------
 bool CoreDir::os_remove_dir(const std::string &path)
 {
-    return rmdir(path.c_str());
+    return rmdir(path.c_str()) == 0;
 }
 
 //------------------------------------------------------------------------------
 bool CoreDir::os_mkdir(const std::string &path, int perms)
 {
-    return mkdir(path.c_str(), perms);
+    return mkdir(path.c_str(), perms) == 0;
 }
 
 //------------------------------------------------------------------------------
