@@ -56,6 +56,12 @@ bool CoreDir::os_mkdir(
 }
 
 //------------------------------------------------------------------------------
+void CoreDir::os_chdir(const std::string &path)
+{
+    //COWTODO(n2omatt): Implement...
+}
+
+//------------------------------------------------------------------------------
 std::vector<std::string> CoreDir::os_get_filesystem_entries_helper(
     const std::string &path,
     const std::string &pattern,

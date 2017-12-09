@@ -38,6 +38,8 @@ bool os_remove_file(const std::string &path);
 bool os_remove_dir (const std::string &path);
 bool os_mkdir      (const std::string &path, int perms);
 
+void os_chdir(const std::string &path);
+
 //------------------------------------------------------------------------------
 std::vector<std::string> os_get_filesystem_entries_helper(
     const std::string &path,
