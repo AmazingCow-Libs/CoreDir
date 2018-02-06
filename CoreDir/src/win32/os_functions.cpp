@@ -27,7 +27,7 @@
 // Windows
 #include <Windows.h>
 // CoreFS
-#include "CoreFS?CoreFS.h"
+#include "CoreFS/CoreFS.h"
 
 //------------------------------------------------------------------------------
 bool CoreDir::os_rename(const std::string &src, const std::string &dst)
