@@ -58,7 +58,9 @@ bool CoreDir::os_mkdir(
 //------------------------------------------------------------------------------
 void CoreDir::os_chdir(const std::string &path)
 {
-    //COWTODO(n2omatt): Implement...
+    // COWTODO(n2omatt): Bullet proof this...
+    //   https://msdn.microsoft.com/en-us/library/windows/desktop/aa365530(v=vs.85).aspx
+    SetCurrentDirectory(path.c_str());
 }
 
 //------------------------------------------------------------------------------
