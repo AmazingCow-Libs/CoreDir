@@ -46,8 +46,20 @@
 // std
 #include <string>
 #include <vector>
+// AmazingCow libs
+#include "acow/cpp_goodies.h"
 // CoreDir
 #include "CoreDir_Utils.h"
+
+#define COREDIR_UNDEF_WINDOWS_DECLARATIONS 1
+#if (COREDIR_UNDEF_WINDOWS_DECLARATIONS)
+    #if (ACOW_OS_IS_WINDOWS)
+        #undef GetTempFileName
+        #undef GetTempPath
+        #undef GetCurrentDirectory
+        #undef SetCurrentDirectory
+    #endif
+#endif // COREDIR_UNDEF_WINDOWS_DECLARATIONS
 
 NS_COREDIR_BEGIN
 
