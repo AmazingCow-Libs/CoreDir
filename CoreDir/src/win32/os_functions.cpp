@@ -18,14 +18,17 @@
 //    Implementation for Windows.                                             //
 //---------------------------------------------------------------------------~//
 
-#if _WIN32
-
 // Header
 #include "../os_functions.h"
+// AmazingCow Libs
+#include "acow/cpp_goodies.h"
+
+#if (ACOW_OS_IS_WINDOWS)
+
 // std
 #include <regex>
 // Windows
-#define WINDOWS_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
 #define _WINSOCKAPI_
 #include <Windows.h>
 // CoreFS
