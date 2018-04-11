@@ -92,7 +92,7 @@ std::vector<std::string> CoreDir::os_get_filesystem_entries_helper(
     if(hFind == INVALID_HANDLE_VALUE)
         return entries;
 
-    auto re = std::regex(pattern, std::regex::egrep);
+    auto re = std::regex(pattern, std::regex::ECMAScript);
     auto sm = std::smatch();
 
     do {

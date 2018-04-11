@@ -78,7 +78,7 @@ std::vector<std::string> CoreDir::os_get_filesystem_entries_helper(
     if(!p_DIR)
         return entries;
 
-    auto re = std::regex(pattern, std::regex::egrep);
+    auto re = std::regex(pattern, std::regex::ECMAScript);
     auto sm = std::smatch();
 
     struct dirent *p_dirent = nullptr;
