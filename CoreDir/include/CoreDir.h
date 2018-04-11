@@ -51,8 +51,7 @@
 // CoreDir
 #include "CoreDir_Utils.h"
 
-#define COREDIR_UNDEF_WINDOWS_DECLARATIONS 1
-#if (COREDIR_UNDEF_WINDOWS_DECLARATIONS)
+#if defined(COREDIR_UNDEF_WINDOWS_DECLARATIONS)
     #if (ACOW_OS_IS_WINDOWS)
         #undef GetTempFileName
         #undef GetTempPath
